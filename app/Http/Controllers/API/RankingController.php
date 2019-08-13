@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace App\Http\Controllers\API;
 
@@ -8,6 +8,7 @@ use App\Ranking\CourseRanking;
 use App\Ranking\WorldRankingQuery;
 use App\Ranking\CountryRankingQuery;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Database\Eloquent\Collection;
 
 class RankingController extends Controller
 {
@@ -17,7 +18,7 @@ class RankingController extends Controller
      * @param integer $course
      * @return void
      */
-    public function worldCourseRanking($course_id)
+    public function worldCourseRanking($course_id): Collection
     {
         return  Cache::remember("ranking-$course_id", 90, function () use ($course_id) {
             return (new CourseRanking(new WorldRankingQuery($course_id)))->list();
@@ -31,7 +32,7 @@ class RankingController extends Controller
      * @param integer $country_id
      * @return void
      */
-    public function countryCourseRanking($course_id, $country_id)
+    public function countryCourseRanking($course_id, $country_id): Collection
     {
         return Cache::remember("ranking-$course_id-$country_id", 90, function () use ($course_id, $country_id) {
             return (new CourseRanking(new CountryRankingQuery($course_id, $country_id)))->list();
