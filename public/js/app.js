@@ -1782,6 +1782,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
     console.log('Ranking List mounted.');
@@ -1868,7 +1870,23 @@ __webpack_require__.r(__webpack_exports__);
         }
 
         this.tier3 = this.ranking.slice(tier3_start_index);
-        limit -= this.tier3.length;
+        limit -= this.tier3.length; //Build tier 2
+
+        if (limit > 0) {
+          if (found || !this.my_index) {
+            var median_index = Math.ceil(this.ranking.length / 2) - 1;
+
+            if (limit == 1) {
+              this.tier2 = this.ranking.slice(median_index, median_index + 1);
+            } else if (limit == 2) {
+              this.tier2 = this.ranking.slice(median_index, median_index + 2);
+            } else {
+              this.tier2 = this.ranking.slice(median_index - 1, median_index + 2);
+            }
+          } else {
+            this.tier2 = this.ranking.slice(this.my_index - 1, this.my_index + 2);
+          }
+        }
       }
     }
   }
@@ -37329,6 +37347,15 @@ var render = function() {
       { staticStyle: { padding: "0px" } },
       [
         _vm._l(_vm.tier1, function(rank) {
+          return _c("rank-item", {
+            key: rank.user_id,
+            attrs: { rank: rank, my_ranking: _vm.my_ranking }
+          })
+        }),
+        _vm._v(" "),
+        _c("hr"),
+        _vm._v(" "),
+        _vm._l(_vm.tier2, function(rank) {
           return _c("rank-item", {
             key: rank.user_id,
             attrs: { rank: rank, my_ranking: _vm.my_ranking }

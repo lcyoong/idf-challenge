@@ -6,6 +6,8 @@
         <ul style="padding: 0px;">
             <rank-item v-for="rank in tier1" :key="rank.user_id" :rank="rank" :my_ranking="my_ranking"></rank-item>
             <hr>
+            <rank-item v-for="rank in tier2" :key="rank.user_id" :rank="rank" :my_ranking="my_ranking"></rank-item>
+            <hr>
             <rank-item v-for="rank in tier3" :key="rank.user_id" :rank="rank" :my_ranking="my_ranking"></rank-item>
         </ul>
     </div>
@@ -113,6 +115,23 @@
                     this.tier3 = this.ranking.slice(tier3_start_index);
 
                     limit -= this.tier3.length;
+
+                    //Build tier 2
+                    if (limit > 0) {
+                        if (found || !this.my_index) {
+                            var median_index = Math.ceil(this.ranking.length/2) - 1;
+                            
+                            if(limit == 1) {
+                                this.tier2 = this.ranking.slice(median_index, median_index + 1);
+                            } else if(limit == 2) {
+                                this.tier2 = this.ranking.slice(median_index, median_index + 2);
+                            } else {
+                                this.tier2 = this.ranking.slice(median_index -1, median_index + 2);
+                            }
+                        } else {
+                            this.tier2 = this.ranking.slice(this.my_index - 1, this.my_index + 2);
+                        }
+                    }
 
                 }
 
