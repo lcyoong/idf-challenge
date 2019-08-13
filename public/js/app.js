@@ -1751,7 +1751,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
     console.log('Rank item mounted.');
-  }
+  },
+  props: ['rank']
 });
 
 /***/ }),
@@ -1777,7 +1778,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
     console.log('Ranking List mounted.');
-  }
+  },
+  props: ['ranking']
 });
 
 /***/ }),
@@ -37123,57 +37125,52 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "li",
-      {
-        staticClass: "courseRanking__rankItem",
-        staticStyle: {
-          display: "flex",
-          "flex-direction": "row",
-          padding: "10px"
-        }
-      },
-      [
+  return _c(
+    "li",
+    {
+      staticClass: "courseRanking__rankItem",
+      staticStyle: { display: "flex", "flex-direction": "row", padding: "10px" }
+    },
+    [
+      _c(
+        "div",
+        {
+          staticClass: "position",
+          staticStyle: {
+            "font-size": "28px",
+            color: "rgb(132, 132, 132)",
+            "text-align": "right",
+            width: "80px",
+            "padding-right": "10px"
+          }
+        },
+        [_vm._v("\n        " + _vm._s(_vm.rank.position) + "\n    ")]
+      ),
+      _vm._v(" "),
+      _c("div", { staticClass: "info" }, [
+        _c("div", { staticStyle: { "font-size": "16px" } }, [
+          _vm._v("\n            " + _vm._s(_vm.rank.name) + "\n        ")
+        ]),
+        _vm._v(" "),
         _c(
           "div",
           {
-            staticClass: "position",
-            staticStyle: {
-              "font-size": "28px",
-              color: "rgb(132, 132, 132)",
-              "text-align": "right",
-              width: "80px",
-              "padding-right": "10px"
-            }
+            staticClass: "score",
+            staticStyle: { "font-size": "10px", color: "rgb(132, 132, 132)" }
           },
-          [_vm._v("\n        1\n    ")]
-        ),
-        _vm._v(" "),
-        _c("div", { staticClass: "info" }, [
-          _c("div", { staticStyle: { "font-size": "16px" } }, [
-            _vm._v("\n            Sandra Lidstream\n        ")
-          ]),
-          _vm._v(" "),
-          _c(
-            "div",
-            {
-              staticClass: "score",
-              staticStyle: { "font-size": "10px", color: "rgb(132, 132, 132)" }
-            },
-            [_vm._v("\n            205 PTS (+93)\n        ")]
-          )
-        ])
-      ]
-    )
-  }
-]
+          [
+            _vm._v(
+              "\n            " +
+                _vm._s(_vm.rank.points) +
+                " PTS (+93)\n        "
+            )
+          ]
+        )
+      ])
+    ]
+  )
+}
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -37198,7 +37195,14 @@ var render = function() {
   return _c("div", [
     _vm._m(0),
     _vm._v(" "),
-    _c("ul", { staticStyle: { padding: "0px" } }, [_c("rank-item")], 1)
+    _c(
+      "ul",
+      { staticStyle: { padding: "0px" } },
+      _vm._l(_vm.ranking, function(rank) {
+        return _c("rank-item", { key: rank.user_id, attrs: { rank: rank } })
+      }),
+      1
+    )
   ])
 }
 var staticRenderFns = [
@@ -49388,10 +49392,9 @@ Vue.component('rank-item', __webpack_require__(/*! ./components/RankItem.vue */ 
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
-
-var app = new Vue({
-  el: '#app'
-});
+// const app = new Vue({
+//     el: '#app'
+// });
 
 /***/ }),
 
