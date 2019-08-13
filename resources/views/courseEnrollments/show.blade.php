@@ -66,7 +66,9 @@ new Vue({
                 this.world_ranking = response.data;
                 console.log(this.world_ranking);
             })
-            .catch();
+            .catch((error) => {
+                console.log(error);
+            });
         },
         getCountryRanking: function() {
             axios.get('/api/course/{{ $enrollment->course_id }}/country/'+{{ auth()->user()->country->id }}+'/ranking')
@@ -74,7 +76,9 @@ new Vue({
                 this.country_ranking = response.data;
                 console.log(this.country_ranking);
             })
-            .catch();
+            .catch((error) => {
+                console.log(error);
+            });
         },
 
     }

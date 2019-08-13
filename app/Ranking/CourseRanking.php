@@ -28,7 +28,7 @@ class CourseRanking
     /**
      * Format ranking list result before responding - to include position and co-ranks
      *
-     * @param [type] $result
+     * @param Collection $result
      * @return Collection
      */
     public function formatResult($result): Collection
