@@ -10,7 +10,10 @@
                 {{ rank.name }}
             </div>
             <div class="score" style="font-size: 10px; color: rgb(132, 132, 132);">
-                {{ rank.points }} PTS (+93)
+                {{ rank.points }} PTS
+                <span v-if="my_ranking">
+                {{ rank.points - my_ranking.points > 0 ? "(+" + String(rank.points - my_ranking.points) + ")" : '' }}
+                </span>
             </div>
         </div>
     </li>

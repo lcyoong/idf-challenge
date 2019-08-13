@@ -1748,6 +1748,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
     console.log('Rank item mounted.');
@@ -37190,10 +37193,23 @@ var render = function() {
           },
           [
             _vm._v(
-              "\n            " +
-                _vm._s(_vm.rank.points) +
-                " PTS (+93)\n        "
-            )
+              "\n            " + _vm._s(_vm.rank.points) + " PTS\n            "
+            ),
+            _vm.my_ranking
+              ? _c("span", [
+                  _vm._v(
+                    "\n            " +
+                      _vm._s(
+                        _vm.rank.points - _vm.my_ranking.points > 0
+                          ? "(+" +
+                              String(_vm.rank.points - _vm.my_ranking.points) +
+                              ")"
+                          : ""
+                      ) +
+                      "\n            "
+                  )
+                ])
+              : _vm._e()
           ]
         )
       ])
