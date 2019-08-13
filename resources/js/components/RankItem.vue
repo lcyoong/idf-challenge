@@ -6,7 +6,7 @@
             {{ rank.position }}
         </div>
         <div class="info">
-            <div style="font-size: 16px;">
+            <div :style="{'font-size': '16px', 'font-weight': my_ranking && my_ranking.user_id == rank.user_id ? 'bold' : 'normal'}">
                 {{ rank.name }}
             </div>
             <div class="score" style="font-size: 10px; color: rgb(132, 132, 132);">
@@ -21,6 +21,6 @@
         mounted() {
             console.log('Rank item mounted.')
         },
-        props: ['rank']
+        props: ['rank', 'my_ranking']
     }
 </script>

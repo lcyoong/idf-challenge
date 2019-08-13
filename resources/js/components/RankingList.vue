@@ -4,7 +4,7 @@
         <h4>You are ranked <b>{{ my_ranking.position + nth(my_ranking.position) }}</b> {{ rank_category }}</h4>
         </div>
         <ul style="padding: 0px;">
-            <rank-item v-for="rank in ranking" :key="rank.user_id" :rank="rank"></rank-item>
+            <rank-item v-for="rank in ranking" :key="rank.user_id" :rank="rank" :my_ranking="my_ranking"></rank-item>
         </ul>
     </div>
 </template>

@@ -1752,7 +1752,7 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     console.log('Rank item mounted.');
   },
-  props: ['rank']
+  props: ['rank', 'my_ranking']
 });
 
 /***/ }),
@@ -37168,9 +37168,19 @@ var render = function() {
       ),
       _vm._v(" "),
       _c("div", { staticClass: "info" }, [
-        _c("div", { staticStyle: { "font-size": "16px" } }, [
-          _vm._v("\n            " + _vm._s(_vm.rank.name) + "\n        ")
-        ]),
+        _c(
+          "div",
+          {
+            style: {
+              "font-size": "16px",
+              "font-weight":
+                _vm.my_ranking && _vm.my_ranking.user_id == _vm.rank.user_id
+                  ? "bold"
+                  : "normal"
+            }
+          },
+          [_vm._v("\n            " + _vm._s(_vm.rank.name) + "\n        ")]
+        ),
         _vm._v(" "),
         _c(
           "div",
@@ -37233,7 +37243,10 @@ var render = function() {
       "ul",
       { staticStyle: { padding: "0px" } },
       _vm._l(_vm.ranking, function(rank) {
-        return _c("rank-item", { key: rank.user_id, attrs: { rank: rank } })
+        return _c("rank-item", {
+          key: rank.user_id,
+          attrs: { rank: rank, my_ranking: _vm.my_ranking }
+        })
       }),
       1
     )
