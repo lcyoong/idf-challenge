@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Ranking\CourseRanking;
 use App\Ranking\WorldRankingQuery;
 use App\Ranking\CountryRankingQuery;
+use Illuminate\Support\Facades\Cache;
 
 class RankingController extends Controller
 {
@@ -18,7 +19,9 @@ class RankingController extends Controller
      */
     public function worldCourseRanking($course_id)
     {
-        return (new CourseRanking(new WorldRankingQuery($course_id)))->list();
+        return  Cache::remember("ranking-$course_id", 90, function () use ($course_id) {
+            return (new CourseRanking(new WorldRankingQuery($course_id)))->list();
+        });
     }
 
     /**
