@@ -1,6 +1,8 @@
 <template>
     <div>
-        <h4>You are ranked <b>4th</b> Worldwide</h4>
+        <div v-if="my_ranking">
+        <h4>You are ranked <b>{{ my_ranking.position }}</b> Worldwide</h4>
+        </div>
         <ul style="padding: 0px;">
             <rank-item v-for="rank in ranking" :key="rank.user_id" :rank="rank"></rank-item>
         </ul>
@@ -13,6 +15,25 @@
             console.log('Ranking List mounted.')
         },
 
-        props: ['ranking'],
+        props: ['ranking', 'target_user_id'],
+
+        watch: {
+            ranking: function () {
+                this.my_ranking = this.ranking.find(this.findByUser);
+            }
+        },        
+
+        data: function() {
+            return {
+                my_ranking: null,
+            }
+        },
+
+        methods: {
+            findByUser: function(rank) {
+                return rank.user_id == this.target_user_id
+            },
+        }
+
     }
 </script>

@@ -1775,11 +1775,28 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
     console.log('Ranking List mounted.');
   },
-  props: ['ranking']
+  props: ['ranking', 'target_user_id'],
+  watch: {
+    ranking: function ranking() {
+      this.my_ranking = this.ranking.find(this.findByUser);
+    }
+  },
+  data: function data() {
+    return {
+      my_ranking: null
+    };
+  },
+  methods: {
+    findByUser: function findByUser(rank) {
+      return rank.user_id == this.target_user_id;
+    }
+  }
 });
 
 /***/ }),
@@ -37193,7 +37210,15 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _vm._m(0),
+    _vm.my_ranking
+      ? _c("div", [
+          _c("h4", [
+            _vm._v("You are ranked "),
+            _c("b", [_vm._v(_vm._s(_vm.my_ranking.position))]),
+            _vm._v(" Worldwide")
+          ])
+        ])
+      : _vm._e(),
     _vm._v(" "),
     _c(
       "ul",
@@ -37205,18 +37230,7 @@ var render = function() {
     )
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("h4", [
-      _vm._v("You are ranked "),
-      _c("b", [_vm._v("4th")]),
-      _vm._v(" Worldwide")
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
