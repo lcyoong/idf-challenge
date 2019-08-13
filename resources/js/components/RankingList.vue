@@ -8,9 +8,9 @@
         </div>        
         <ul style="padding: 0px;">
             <rank-item v-for="rank in tier1" :key="rank.user_id" :rank="rank" :my_ranking="my_ranking"></rank-item>
-            <hr>
+            <hr v-if="tier2.length > 0">
             <rank-item v-for="rank in tier2" :key="rank.user_id" :rank="rank" :my_ranking="my_ranking"></rank-item>
-            <hr>
+            <hr v-if="tier3.length > 0">
             <rank-item v-for="rank in tier3" :key="rank.user_id" :rank="rank" :my_ranking="my_ranking"></rank-item>
         </ul>
     </div>

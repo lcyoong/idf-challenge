@@ -37362,7 +37362,7 @@ var render = function() {
           })
         }),
         _vm._v(" "),
-        _c("hr"),
+        _vm.tier2.length > 0 ? _c("hr") : _vm._e(),
         _vm._v(" "),
         _vm._l(_vm.tier2, function(rank) {
           return _c("rank-item", {
@@ -37371,7 +37371,7 @@ var render = function() {
           })
         }),
         _vm._v(" "),
-        _c("hr"),
+        _vm.tier3.length > 0 ? _c("hr") : _vm._e(),
         _vm._v(" "),
         _vm._l(_vm.tier3, function(rank) {
           return _c("rank-item", {
