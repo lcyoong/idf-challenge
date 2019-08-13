@@ -1,7 +1,7 @@
 <template>
     <div>
         <div v-if="my_ranking">
-        <h4>You are ranked <b>{{ my_ranking.position }}</b> Worldwide</h4>
+        <h4>You are ranked <b>{{ my_ranking.position }}</b> {{ rank_category }}</h4>
         </div>
         <ul style="padding: 0px;">
             <rank-item v-for="rank in ranking" :key="rank.user_id" :rank="rank"></rank-item>
@@ -15,7 +15,7 @@
             console.log('Ranking List mounted.')
         },
 
-        props: ['ranking', 'target_user_id'],
+        props: ['ranking', 'target_user_id', 'rank_category'],
 
         watch: {
             ranking: function () {

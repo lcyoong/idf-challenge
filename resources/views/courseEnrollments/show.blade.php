@@ -34,10 +34,10 @@
                         </p>
                         <div class="row">
                             <div class="col-md-6">
-                                <ranking-list :ranking="country_ranking" :target_user_id="{{ auth()->id() }}"></ranking-list>
+                                <ranking-list :ranking="country_ranking" :target_user_id="{{ auth()->id() }}" :rank_category="'in {{ auth()->user()->country->name }}'"></ranking-list>
                             </div>
                             <div class="col-md-6">
-                                <ranking-list :ranking="world_ranking" :target_user_id="{{ auth()->id() }}"></ranking-list>
+                                <ranking-list :ranking="world_ranking" :target_user_id="{{ auth()->id() }}" :rank_category="'Worldwide'"></ranking-list>
                             </div>
                         </div>
                     </div>

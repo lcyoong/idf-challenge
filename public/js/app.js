@@ -1781,7 +1781,7 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     console.log('Ranking List mounted.');
   },
-  props: ['ranking', 'target_user_id'],
+  props: ['ranking', 'target_user_id', 'rank_category'],
   watch: {
     ranking: function ranking() {
       this.my_ranking = this.ranking.find(this.findByUser);
@@ -37215,7 +37215,7 @@ var render = function() {
           _c("h4", [
             _vm._v("You are ranked "),
             _c("b", [_vm._v(_vm._s(_vm.my_ranking.position))]),
-            _vm._v(" Worldwide")
+            _vm._v(" " + _vm._s(_vm.rank_category))
           ])
         ])
       : _vm._e(),
