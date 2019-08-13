@@ -1,8 +1,11 @@
 <template>
     <div>
         <div v-if="my_ranking">
-        <h4>You are ranked <b>{{ my_ranking.position + nth(my_ranking.position) }}</b> {{ rank_category }}</h4>
+            <h4>You are ranked <b>{{ my_ranking.position + nth(my_ranking.position) }}</b> {{ rank_category }}</h4>
         </div>
+        <div v-else>
+            <h4>You are <b>not ranked</b> {{ rank_category }}</h4>
+        </div>        
         <ul style="padding: 0px;">
             <rank-item v-for="rank in tier1" :key="rank.user_id" :rank="rank" :my_ranking="my_ranking"></rank-item>
             <hr>

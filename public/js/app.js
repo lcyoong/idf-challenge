@@ -1784,6 +1784,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
     console.log('Ranking List mounted.');
@@ -37340,7 +37343,13 @@ var render = function() {
             _vm._v(" " + _vm._s(_vm.rank_category))
           ])
         ])
-      : _vm._e(),
+      : _c("div", [
+          _c("h4", [
+            _vm._v("You are "),
+            _c("b", [_vm._v("not ranked")]),
+            _vm._v(" " + _vm._s(_vm.rank_category))
+          ])
+        ]),
     _vm._v(" "),
     _c(
       "ul",
