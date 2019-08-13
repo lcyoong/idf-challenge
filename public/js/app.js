@@ -1795,6 +1795,9 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     findByUser: function findByUser(rank) {
       return rank.user_id == this.target_user_id;
+    },
+    nth: function nth(n) {
+      return ["st", "nd", "rd"][((n + 90) % 100 - 10) % 10 - 1] || "th";
     }
   }
 });
@@ -37214,7 +37217,13 @@ var render = function() {
       ? _c("div", [
           _c("h4", [
             _vm._v("You are ranked "),
-            _c("b", [_vm._v(_vm._s(_vm.my_ranking.position))]),
+            _c("b", [
+              _vm._v(
+                _vm._s(
+                  _vm.my_ranking.position + _vm.nth(_vm.my_ranking.position)
+                )
+              )
+            ]),
             _vm._v(" " + _vm._s(_vm.rank_category))
           ])
         ])
