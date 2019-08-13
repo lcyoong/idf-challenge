@@ -24,7 +24,7 @@
                     </div>
                 </div>
 
-                <div class="card mt-4">
+                <div class="card mt-4" id="stat">
                     <h2 class="card-header">Statistics</h2>
                     <div class="card-body">
 
@@ -324,3 +324,28 @@
         </div>
     </div>
 @endsection
+
+@push('scripts')
+<script>
+new Vue({
+    el: '#stat',
+    data: {
+        world_ranking: [],
+    },
+    created: function () {
+        this.getWorldRanking();
+    },
+    methods: {
+        getWorldRanking: function() {
+            axios.get('/api/course/{{ $enrollment->course_id }}/ranking')
+            .then(response=>{
+                this.world_ranking = response.data;
+                console.log(this.world_ranking);
+            })
+            .catch();
+        },
+    }
+
+});
+</script>
+@endpush
