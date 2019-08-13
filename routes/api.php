@@ -18,3 +18,4 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:api');
 
 Route::get('/course/{course}/ranking', 'API\RankingController@worldCourseRanking')->middleware('auth:api');
+Route::get('/course/{course}/country/{country}/ranking', 'API\RankingController@countryCourseRanking')->middleware('auth:api');
