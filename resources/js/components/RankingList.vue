@@ -4,6 +4,8 @@
         <h4>You are ranked <b>{{ my_ranking.position + nth(my_ranking.position) }}</b> {{ rank_category }}</h4>
         </div>
         <ul style="padding: 0px;">
+            <rank-item v-for="rank in tier1" :key="rank.user_id" :rank="rank" :my_ranking="my_ranking"></rank-item>
+            <hr>
             <rank-item v-for="rank in ranking" :key="rank.user_id" :rank="rank" :my_ranking="my_ranking"></rank-item>
         </ul>
     </div>
@@ -21,6 +23,7 @@
             ranking: function () {
                 this.my_ranking = this.ranking.find(this.findByUser);
                 this.bumpMeUp();
+                this.tier1();
             }
         },        
 
@@ -28,6 +31,7 @@
             return {
                 my_ranking: null,
                 my_co_ranks: [],
+                my_index: null,
             }
         },
 
@@ -70,6 +74,24 @@
                     }
                 }
             },
+            tier1: function() {
+
+                if (this.my_ranking) this.my_index = this.my_ranking.position - 1;
+
+                const max = 9;
+                var limit = max > this.ranking.length ? this.ranking.length : max;
+                console.log(this.ranking.length);
+
+                //Build tier 1
+                var tier1_end_index = 2;
+
+                if (this.my_index && this.my_index <= tier1_end_index + 1) {
+                    tier1_end_index = this.my_index + 1;
+                }
+
+                this.tier1 = this.ranking.slice(0, tier1_end_index + 1);
+
+            }
 
         }
 
