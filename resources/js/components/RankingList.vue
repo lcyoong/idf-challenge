@@ -6,7 +6,7 @@
         <ul style="padding: 0px;">
             <rank-item v-for="rank in tier1" :key="rank.user_id" :rank="rank" :my_ranking="my_ranking"></rank-item>
             <hr>
-            <rank-item v-for="rank in ranking" :key="rank.user_id" :rank="rank" :my_ranking="my_ranking"></rank-item>
+            <rank-item v-for="rank in tier3" :key="rank.user_id" :rank="rank" :my_ranking="my_ranking"></rank-item>
         </ul>
     </div>
 </template>
@@ -23,7 +23,7 @@
             ranking: function () {
                 this.my_ranking = this.ranking.find(this.findByUser);
                 this.bumpMeUp();
-                this.tier1();
+                this.buildTiers();
             }
         },        
 
@@ -32,6 +32,9 @@
                 my_ranking: null,
                 my_co_ranks: [],
                 my_index: null,
+                tier1: [],
+                tier2: [],
+                tier3: [],
             }
         },
 
@@ -74,11 +77,12 @@
                     }
                 }
             },
-            tier1: function() {
+            buildTiers: function() {
 
                 if (this.my_ranking) this.my_index = this.my_ranking.position - 1;
 
                 const max = 9;
+                var found = 0;
                 var limit = max > this.ranking.length ? this.ranking.length : max;
                 console.log(this.ranking.length);
 
@@ -87,9 +91,30 @@
 
                 if (this.my_index && this.my_index <= tier1_end_index + 1) {
                     tier1_end_index = this.my_index + 1;
+                    found = 1;
                 }
 
                 this.tier1 = this.ranking.slice(0, tier1_end_index + 1);
+
+                limit -= this.tier1.length;
+
+                if (limit > 0) {
+
+                    //Build tier 3
+                    var tier_limit = Math.min(3, limit);
+                    var tier3_start_index = this.ranking.length - tier_limit;
+
+                    if (this.my_index && this.my_index >= tier3_start_index - 1) {
+                        if (this.my_index - 1 < tier3_start_index) {
+                            tier3_start_index = this.my_index - 1;
+                        }
+                        found = 1;
+                    }
+                    this.tier3 = this.ranking.slice(tier3_start_index);
+
+                    limit -= this.tier3.length;
+
+                }
 
             }
 

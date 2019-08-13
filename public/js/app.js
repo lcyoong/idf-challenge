@@ -1791,14 +1791,17 @@ __webpack_require__.r(__webpack_exports__);
     ranking: function ranking() {
       this.my_ranking = this.ranking.find(this.findByUser);
       this.bumpMeUp();
-      this.tier1();
+      this.buildTiers();
     }
   },
   data: function data() {
     return {
       my_ranking: null,
       my_co_ranks: [],
-      my_index: null
+      my_index: null,
+      tier1: [],
+      tier2: [],
+      tier3: []
     };
   },
   methods: {
@@ -1834,9 +1837,10 @@ __webpack_require__.r(__webpack_exports__);
         }
       }
     },
-    tier1: function tier1() {
+    buildTiers: function buildTiers() {
       if (this.my_ranking) this.my_index = this.my_ranking.position - 1;
       var max = 9;
+      var found = 0;
       var limit = max > this.ranking.length ? this.ranking.length : max;
       console.log(this.ranking.length); //Build tier 1
 
@@ -1844,9 +1848,28 @@ __webpack_require__.r(__webpack_exports__);
 
       if (this.my_index && this.my_index <= tier1_end_index + 1) {
         tier1_end_index = this.my_index + 1;
+        found = 1;
       }
 
       this.tier1 = this.ranking.slice(0, tier1_end_index + 1);
+      limit -= this.tier1.length;
+
+      if (limit > 0) {
+        //Build tier 3
+        var tier_limit = Math.min(3, limit);
+        var tier3_start_index = this.ranking.length - tier_limit;
+
+        if (this.my_index && this.my_index >= tier3_start_index - 1) {
+          if (this.my_index - 1 < tier3_start_index) {
+            tier3_start_index = this.my_index - 1;
+          }
+
+          found = 1;
+        }
+
+        this.tier3 = this.ranking.slice(tier3_start_index);
+        limit -= this.tier3.length;
+      }
     }
   }
 });
@@ -37314,7 +37337,7 @@ var render = function() {
         _vm._v(" "),
         _c("hr"),
         _vm._v(" "),
-        _vm._l(_vm.ranking, function(rank) {
+        _vm._l(_vm.tier3, function(rank) {
           return _c("rank-item", {
             key: rank.user_id,
             attrs: { rank: rank, my_ranking: _vm.my_ranking }
