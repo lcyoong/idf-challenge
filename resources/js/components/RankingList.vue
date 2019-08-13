@@ -27,7 +27,7 @@
         data: function() {
             return {
                 my_ranking: null,
-                my_same_rank: [],
+                my_co_ranks: [],
             }
         },
 
@@ -46,12 +46,12 @@
                     const that = this
 
                     // Get list of same rank
-                    this.my_same_rank = this.ranking.filter(this.filterSameRank);
+                    this.my_co_ranks = this.ranking.filter(this.filterSameRank);
 
-                    if(this.my_same_rank.length > 1) {
+                    if(this.my_co_ranks.length > 1) {
 
                         // Bump me to the top
-                        var first_in_same_rank = this.my_same_rank[0];
+                        var first_in_same_rank = this.my_co_ranks[0];
 
                         var new_index = this.ranking.findIndex(function(item) {
                             return item.user_id == first_in_same_rank.user_id;
@@ -60,7 +60,7 @@
                         this.ranking[new_index] = this.my_ranking;
 
                         // Re-position the rest
-                        this.my_same_rank.forEach(function (peer) {
+                        this.my_co_ranks.forEach(function (peer) {
                             if(peer.user_id != that.my_ranking.user_id) {
                                 new_index++;
                                 that.ranking[new_index] = peer;
