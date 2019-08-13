@@ -33,6 +33,8 @@ class RankingController extends Controller
      */
     public function countryCourseRanking($course_id, $country_id)
     {
-        return (new CourseRanking(new CountryRankingQuery($course_id, $country_id)))->list();
+        return Cache::remember("ranking-$course_id-$country_id", 90, function () use ($course_id, $country_id) {
+            return (new CourseRanking(new CountryRankingQuery($course_id, $country_id)))->list();
+        });
     }
 }
