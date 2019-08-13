@@ -331,9 +331,11 @@ new Vue({
     el: '#stat',
     data: {
         world_ranking: [],
+        country_ranking: [],
     },
     created: function () {
         this.getWorldRanking();
+        this.getCountryRanking();
     },
     methods: {
         getWorldRanking: function() {
@@ -344,6 +346,15 @@ new Vue({
             })
             .catch();
         },
+        getCountryRanking: function() {
+            axios.get('/api/course/{{ $enrollment->course_id }}/country/'+{{ auth()->user()->country->id }}+'/ranking')
+            .then(response=>{
+                this.country_ranking = response.data;
+                console.log(this.country_ranking);
+            })
+            .catch();
+        },
+
     }
 
 });
