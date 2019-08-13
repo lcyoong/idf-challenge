@@ -36,6 +36,7 @@
                             <div class="col-md-6">
                                 <h4>You are ranked <b>4th</b> in {{ auth()->user()->country->name }}</h4>
                                 {{--Replace this stub markup by your code--}}
+                                <ranking-list></ranking-list>
                                 <ul style="padding: 0px;">
                                     <li class="courseRanking__rankItem"
                                         style="display: flex; flex-direction: row; padding: 10px;">
