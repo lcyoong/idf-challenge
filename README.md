@@ -126,4 +126,8 @@ Hint: both GitHub and Bitbucket allow you to create a private repository for fre
 
 PS: I would greatly appreciate it if you kindly give us some feedback about this code-challenge: how it was interesting, challenging, clean, etc. 
 
+LC's note
+----
+After cloning and running the necessary i.e. composer dependecies, migration etc., please run **php artisan passport:keys** to generate the encryption keys needed for Passport.
+
 🦄
