@@ -86,16 +86,16 @@
 
                 if (this.my_ranking) this.my_index = this.my_ranking.position - 1;
 
-                const per_tier = 3;
-                const max = 3*per_tier;
+                const max = 9;
                 var found = 0;
                 var limit = max > this.ranking.length ? this.ranking.length : max;
+                console.log(this.ranking.length);
 
                 //Build tier 1
-                var tier1_end_index = per_tier - 1;
+                var tier1_end_index = 2;
 
-                if (this.my_index && this.my_index - 1 <= tier1_end_index) {
-                    tier1_end_index = Math.max(tier1_end_index, this.my_index + 1);
+                if (this.my_index && this.my_index <= tier1_end_index + 1) {
+                    tier1_end_index = this.my_index + 1;
                     found = 1;
                 }
 
@@ -103,41 +103,40 @@
 
                 limit -= this.tier1.length;
 
-                //Build tier 3
                 if (limit > 0) {
 
-                    var tier_limit = Math.min(per_tier, limit);
-                    
+                    //Build tier 3
+                    var tier_limit = Math.min(3, limit);
                     var tier3_start_index = this.ranking.length - tier_limit;
 
-                    if (this.my_index && this.my_index + 1 >= tier3_start_index) {
-                        tier3_start_index = Math.min(tier3_start_index, this.my_index - 1);
+                    if (this.my_index && this.my_index >= tier3_start_index - 1) {
+                        if (this.my_index - 1 < tier3_start_index) {
+                            tier3_start_index = this.my_index - 1;
+                        }
                         found = 1;
                     }
-
                     this.tier3 = this.ranking.slice(tier3_start_index);
 
                     limit -= this.tier3.length;
-                }
 
-                //Build tier 2
-                if (limit > 0) {
-                    var median_index = Math.round((tier1_end_index + tier3_start_index)/2);
-                    var tier2_start_index = limit == 1 ? median_index : median_index - 1;
-                    var tier2_end_index = tier2_start_index + limit - 1;
-
-                    // If targeted participant in Tier 2
-                    if (!found && this.my_index) {
-                        tier2_start_index = this.my_index - 1;
-                        tier2_end_index = tier2_start_index + limit - 1;
+                    //Build tier 2
+                    if (limit > 0) {
+                        if (found || !this.my_index) {
+                            var median_index = Math.ceil(this.ranking.length/2) - 1;
+                            
+                            if(limit == 1) {
+                                this.tier2 = this.ranking.slice(median_index, median_index + 1);
+                            } else if(limit == 2) {
+                                this.tier2 = this.ranking.slice(median_index, median_index + 2);
+                            } else {
+                                this.tier2 = this.ranking.slice(median_index -1, median_index + 2);
+                            }
+                        } else {
+                            this.tier2 = this.ranking.slice(this.my_index - 1, this.my_index + 2);
+                        }
                     }
 
-                    tier2_start_index = Math.max(tier2_start_index, tier1_end_index + 1);
-                    tier2_end_index = Math.min(tier2_end_index, tier3_start_index - 1);
-
-                    this.tier2 = this.ranking.slice(tier2_start_index, tier2_end_index + 1);
                 }
-
 
             }
 
